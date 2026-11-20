@@ -1,0 +1,2170 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Engineer Roadmap 2026 — Interactive Curriculum &amp; Resource Vault</title>
+  <meta name="description" content="Self-paced, topic-by-topic AI Engineering curriculum, live progress tracker, and curated resource vault." />
+  <meta property="og:title" content="AI Engineer Roadmap 2026" />
+  <meta property="og:description" content="Structured self-learning path, progress dashboard, and curated AI engineering resources." />
+  <meta property="og:type" content="website" />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0%25' stop-color='%23FF6363'/%3E%3Cstop offset='100%25' stop-color='%238B5CF6'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='32' height='32' rx='8' fill='%230B0C10'/%3E%3Cpath d='M16 6L25 11V21L16 26L7 21V11L16 6Z' fill='none' stroke='url(%23g)' stroke-width='2.2'/%3E%3Ccircle cx='16' cy='16' r='3.5' fill='%23FF6363'/%3E%3C/svg%3E" />
+
+  <style>
+    /* ==========================================================================
+       1. DESIGN TOKENS (Raycast Studio Obsidian & Alabaster Architecture)
+       ========================================================================== */
+    :root {
+      --font-sans: -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", Roboto, sans-serif;
+      --font-mono: "JetBrains Mono", "Geist Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+
+      /* Dark Theme (Default — Raycast Obsidian) */
+      --bg-canvas: #07080a;
+      --bg-elevated: #0d0f14;
+      --bg-surface: #12151c;
+      --bg-surface-hover: #181c26;
+      --bg-glass: rgba(13, 15, 20, 0.78);
+      --bg-pill: rgba(255, 255, 255, 0.045);
+      --bg-pill-hover: rgba(255, 255, 255, 0.085);
+
+      --border-hairline: rgba(255, 255, 255, 0.08);
+      --border-strong: rgba(255, 255, 255, 0.14);
+      --specular-top: inset 0 1px 0 0 rgba(255, 255, 255, 0.09);
+
+      --text-primary: #f2f3f5;
+      --text-secondary: #9ca3af;
+      --text-muted: #6b7280;
+
+      /* Raycast Signature Coral-Crimson + Indigo-Emerald Accents */
+      --accent-coral: #ff6363;
+      --accent-coral-soft: rgba(255, 99, 99, 0.14);
+      --accent-indigo: #63a1ff;
+      --accent-indigo-soft: rgba(99, 161, 255, 0.14);
+      --accent-emerald: #59d499;
+      --accent-emerald-soft: rgba(89, 212, 153, 0.14);
+      --accent-amber: #ffc531;
+      --accent-amber-soft: rgba(255, 197, 49, 0.14);
+
+      --shadow-window: 0 24px 60px -12px rgba(0, 0, 0, 0.65), 0 0 0 1px var(--border-hairline), var(--specular-top);
+      --shadow-card: 0 8px 24px -6px rgba(0, 0, 0, 0.45), 0 0 0 1px var(--border-hairline), var(--specular-top);
+    }
+
+    [data-theme="light"] {
+      --bg-canvas: #f6f7f9;
+      --bg-elevated: #ffffff;
+      --bg-surface: #ffffff;
+      --bg-surface-hover: #f1f3f7;
+      --bg-glass: rgba(255, 255, 255, 0.84);
+      --bg-pill: rgba(15, 23, 42, 0.045);
+      --bg-pill-hover: rgba(15, 23, 42, 0.085);
+
+      --border-hairline: rgba(15, 23, 42, 0.09);
+      --border-strong: rgba(15, 23, 42, 0.16);
+      --specular-top: inset 0 1px 0 0 rgba(255, 255, 255, 0.9);
+
+      --text-primary: #0f172a;
+      --text-secondary: #475569;
+      --text-muted: #64748b;
+
+      --accent-coral: #e11d48;
+      --accent-coral-soft: rgba(225, 29, 72, 0.1);
+      --accent-indigo: #2563eb;
+      --accent-indigo-soft: rgba(37, 99, 235, 0.1);
+      --accent-emerald: #059669;
+      --accent-emerald-soft: rgba(5, 150, 105, 0.1);
+      --accent-amber: #d97706;
+      --accent-amber-soft: rgba(217, 119, 6, 0.12);
+
+      --shadow-window: 0 20px 50px -12px rgba(15, 23, 42, 0.1), 0 0 0 1px var(--border-hairline);
+      --shadow-card: 0 4px 16px -4px rgba(15, 23, 42, 0.06), 0 0 0 1px var(--border-hairline);
+    }
+
+    /* ==========================================================================
+       2. RESET & ATMOSPHERIC BACKGROUND
+       ========================================================================== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html {
+      scroll-behavior: smooth;
+      font-family: var(--font-sans);
+      background-color: var(--bg-canvas);
+      color: var(--text-primary);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* Raycast Atmospheric Diagonal Glow Mesh */
+    .ambient-glow {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      background:
+        radial-gradient(60% 42% at 50% -6%, rgba(255, 99, 99, 0.16) 0%, rgba(99, 102, 241, 0.08) 45%, transparent 100%),
+        radial-gradient(35% 30% at 85% 18%, rgba(99, 161, 255, 0.07) 0%, transparent 100%);
+    }
+
+    [data-theme="light"] .ambient-glow {
+      background:
+        radial-gradient(60% 42% at 50% -6%, rgba(225, 29, 72, 0.08) 0%, rgba(37, 99, 235, 0.05) 45%, transparent 100%);
+    }
+
+    /* ==========================================================================
+       3. FLOATING RAYCAST COMMAND NAVBAR
+       ========================================================================== */
+    .navbar-wrap {
+      position: sticky;
+      top: 14px;
+      z-index: 100;
+      padding: 0 20px;
+      max-width: 1280px;
+      width: 100%;
+      margin: 14px auto 0;
+    }
+
+    .navbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      padding: 10px 14px;
+      background: var(--bg-glass);
+      backdrop-filter: blur(20px) saturate(160%);
+      -webkit-backdrop-filter: blur(20px) saturate(160%);
+      border-radius: 16px;
+      box-shadow: var(--shadow-window);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      text-decoration: none;
+      color: var(--text-primary);
+      cursor: pointer;
+    }
+
+    .brand-icon {
+      width: 34px;
+      height: 34px;
+      border-radius: 10px;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(135deg, rgba(255, 99, 99, 0.2), rgba(99, 102, 241, 0.2));
+      border: 1px solid rgba(255, 99, 99, 0.35);
+      box-shadow: 0 0 20px rgba(255, 99, 99, 0.2);
+      flex-shrink: 0;
+    }
+
+    .brand-text {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .brand-title {
+      font-size: 14.5px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: 1.15;
+    }
+
+    .brand-sub {
+      font-family: var(--font-mono);
+      font-size: 10.5px;
+      color: var(--text-muted);
+      letter-spacing: 0.02em;
+    }
+
+    /* Segmented Pill Switcher */
+    .nav-tabs {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      padding: 4px;
+      background: var(--bg-pill);
+      border: 1px solid var(--border-hairline);
+      border-radius: 12px;
+    }
+
+    .nav-tab {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 7px 14px;
+      border-radius: 9px;
+      border: none;
+      background: transparent;
+      color: var(--text-secondary);
+      font-family: var(--font-sans);
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.18s ease;
+    }
+
+    .nav-tab:hover {
+      color: var(--text-primary);
+      background: rgba(255, 255, 255, 0.04);
+    }
+
+    .nav-tab.active {
+      background: var(--bg-elevated);
+      color: var(--text-primary);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3), 0 0 0 1px var(--border-strong), var(--specular-top);
+    }
+
+    .nav-tab .tab-badge {
+      font-family: var(--font-mono);
+      font-size: 10.5px;
+      padding: 1px 6px;
+      border-radius: 99px;
+      background: var(--accent-coral-soft);
+      color: var(--accent-coral);
+    }
+
+    /* Right Command Actions */
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .cmd-trigger {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 7px 12px;
+      border-radius: 10px;
+      border: 1px solid var(--border-hairline);
+      background: var(--bg-pill);
+      color: var(--text-secondary);
+      font-size: 12.5px;
+      cursor: pointer;
+      transition: all 0.16s ease;
+    }
+
+    .cmd-trigger:hover {
+      border-color: var(--border-strong);
+      background: var(--bg-pill-hover);
+      color: var(--text-primary);
+    }
+
+    kbd {
+      font-family: var(--font-mono);
+      font-size: 10.5px;
+      padding: 2px 6px;
+      border-radius: 5px;
+      background: rgba(255, 255, 255, 0.07);
+      border: 1px solid var(--border-strong);
+      color: var(--text-secondary);
+      box-shadow: 0 1px 0 rgba(0, 0, 0, 0.4);
+    }
+
+    [data-theme="light"] kbd {
+      background: #f1f5f9;
+      box-shadow: 0 1px 0 rgba(15, 23, 42, 0.1);
+    }
+
+    .icon-btn {
+      width: 34px;
+      height: 34px;
+      border-radius: 10px;
+      border: 1px solid var(--border-hairline);
+      background: var(--bg-pill);
+      color: var(--text-secondary);
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      transition: all 0.16s ease;
+    }
+
+    .icon-btn:hover {
+      background: var(--bg-pill-hover);
+      color: var(--text-primary);
+      border-color: var(--border-strong);
+    }
+
+    /* ==========================================================================
+       4. MAIN CONTAINER & VIEW SECTIONS
+       ========================================================================== */
+    .container {
+      position: relative;
+      z-index: 1;
+      max-width: 1280px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 28px 20px 64px;
+      flex: 1;
+    }
+
+    .view-section { display: none; animation: fadeIn 0.25s ease; }
+    .view-section.active { display: block; }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ==========================================================================
+       5. BENTO COMMAND CENTER (TRACKER VIEW)
+       ========================================================================== */
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--accent-coral);
+      background: var(--accent-coral-soft);
+      border: 1px solid rgba(255, 99, 99, 0.25);
+      padding: 4px 10px;
+      border-radius: 99px;
+      margin-bottom: 12px;
+    }
+
+    .hero-title {
+      font-size: clamp(28px, 4vw, 40px);
+      font-weight: 800;
+      letter-spacing: -0.035em;
+      line-height: 1.12;
+      margin-bottom: 8px;
+      background: linear-gradient(180deg, var(--text-primary) 30%, var(--text-secondary) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-desc {
+      font-size: 15px;
+      color: var(--text-secondary);
+      max-width: 640px;
+      line-height: 1.55;
+      margin-bottom: 26px;
+    }
+
+    /* Bento Grid */
+    .bento-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 1.1fr 0.9fr;
+      gap: 16px;
+      margin-bottom: 32px;
+    }
+
+    .bento-card {
+      background: var(--bg-elevated);
+      border-radius: 18px;
+      padding: 22px;
+      box-shadow: var(--shadow-card);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .bento-card::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 20%; right: 20%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255, 99, 99, 0.5), transparent);
+    }
+
+    .bento-label {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 14px;
+    }
+
+    /* Circular SVG Ring Card */
+    .ring-row {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .ring-wrap {
+      position: relative;
+      width: 92px;
+      height: 92px;
+      flex-shrink: 0;
+    }
+
+    .ring-wrap svg { transform: rotate(-90deg); width: 92px; height: 92px; }
+    .ring-bg { fill: none; stroke: var(--border-strong); stroke-width: 7; }
+    .ring-fg {
+      fill: none;
+      stroke: url(#raycastGrad);
+      stroke-width: 7;
+      stroke-linecap: round;
+      transition: stroke-dashoffset 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .ring-center {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      font-family: var(--font-mono);
+      font-size: 18px;
+      font-weight: 700;
+    }
+
+    .ring-stats h3 { font-size: 18px; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 4px; }
+    .ring-stats p { font-size: 13px; color: var(--text-secondary); line-height: 1.45; }
+
+    /* Continue Learning Card */
+    .up-next-title {
+      font-size: 16.5px;
+      font-weight: 700;
+      letter-spacing: -0.015em;
+      margin-bottom: 6px;
+      line-height: 1.35;
+    }
+
+    .up-next-sub {
+      font-size: 12.5px;
+      color: var(--text-secondary);
+      margin-bottom: 16px;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 9px 15px;
+      border-radius: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      background: linear-gradient(180deg, #ff6b6b 0%, #e5484d 100%);
+      color: #fff;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      box-shadow: 0 4px 14px rgba(255, 99, 99, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.25);
+      transition: transform 0.15s ease, filter 0.15s ease;
+    }
+
+    .btn-primary:hover { transform: translateY(-1px); filter: brightness(1.06); }
+
+    /* Mini Metrics Stack */
+    .mini-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .mini-stat-box {
+      padding: 12px;
+      border-radius: 12px;
+      background: var(--bg-pill);
+      border: 1px solid var(--border-hairline);
+    }
+
+    .mini-stat-val {
+      font-family: var(--font-mono);
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+
+    .mini-stat-lbl {
+      font-size: 11.5px;
+      color: var(--text-secondary);
+      margin-top: 2px;
+    }
+
+    /* Section Toolbar */
+    .section-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .section-heading {
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    .filter-pills {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .pill-btn {
+      padding: 6px 12px;
+      border-radius: 99px;
+      border: 1px solid var(--border-hairline);
+      background: var(--bg-pill);
+      color: var(--text-secondary);
+      font-size: 12.5px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .pill-btn:hover { background: var(--bg-pill-hover); color: var(--text-primary); }
+    .pill-btn.active {
+      background: var(--accent-coral-soft);
+      color: var(--accent-coral);
+      border-color: rgba(255, 99, 99, 0.35);
+    }
+
+    /* Topic Matrix Grid */
+    .matrix-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 14px;
+    }
+
+    .matrix-card {
+      background: var(--bg-elevated);
+      border-radius: 15px;
+      padding: 18px;
+      box-shadow: var(--shadow-card);
+      cursor: pointer;
+      transition: transform 0.18s ease, background 0.18s ease;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 14px;
+    }
+
+    .matrix-card:hover {
+      transform: translateY(-2px);
+      background: var(--bg-surface-hover);
+    }
+
+    .matrix-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .mod-num {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 600;
+      padding: 3px 8px;
+      border-radius: 6px;
+      background: var(--bg-pill);
+      border: 1px solid var(--border-hairline);
+      color: var(--text-secondary);
+    }
+
+    .status-tag {
+      font-family: var(--font-mono);
+      font-size: 10.5px;
+      font-weight: 600;
+      padding: 3px 8px;
+      border-radius: 99px;
+    }
+
+    .status-tag.done { background: var(--accent-emerald-soft); color: var(--accent-emerald); }
+    .status-tag.prog { background: var(--accent-amber-soft); color: var(--accent-amber); }
+    .status-tag.idle { background: var(--bg-pill); color: var(--text-muted); }
+
+    .matrix-title {
+      font-size: 14.5px;
+      font-weight: 600;
+      line-height: 1.38;
+      letter-spacing: -0.01em;
+    }
+
+    .prog-track {
+      height: 5px;
+      border-radius: 99px;
+      background: var(--bg-pill);
+      overflow: hidden;
+    }
+
+    .prog-fill {
+      height: 100%;
+      border-radius: 99px;
+      background: linear-gradient(90deg, var(--accent-coral), var(--accent-indigo));
+      transition: width 0.35s ease;
+    }
+
+    .prog-fill.complete { background: var(--accent-emerald); }
+
+    .matrix-foot {
+      display: flex;
+      justify-content: space-between;
+      font-family: var(--font-mono);
+      font-size: 11.5px;
+      color: var(--text-muted);
+    }
+
+    /* ==========================================================================
+       6. CURRICULUM VIEW (MINTLIFY / LINEAR DOCS RAIL + TOPIC CARDS)
+       ========================================================================== */
+    .docs-layout {
+      display: grid;
+      grid-template-columns: 270px 1fr;
+      gap: 28px;
+      align-items: start;
+    }
+
+    .sidebar-rail {
+      position: sticky;
+      top: 82px;
+      background: var(--bg-elevated);
+      border-radius: 16px;
+      padding: 14px;
+      box-shadow: var(--shadow-card);
+      max-height: calc(100vh - 104px);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .rail-list {
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      padding-right: 4px;
+      flex: 1;
+    }
+
+    .rail-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      padding: 8px 10px;
+      border-radius: 9px;
+      text-decoration: none;
+      color: var(--text-secondary);
+      font-size: 12.5px;
+      transition: all 0.15s ease;
+      cursor: pointer;
+    }
+
+    .rail-item:hover { background: var(--bg-pill); color: var(--text-primary); }
+    .rail-item.active {
+      background: var(--accent-coral-soft);
+      color: var(--accent-coral);
+      font-weight: 600;
+    }
+
+    .rail-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--border-strong);
+      flex-shrink: 0;
+    }
+
+    .rail-dot.prog { background: var(--accent-amber); box-shadow: 0 0 8px var(--accent-amber); }
+    .rail-dot.done { background: var(--accent-emerald); box-shadow: 0 0 8px var(--accent-emerald); }
+
+    .rail-footer {
+      margin-top: 12px;
+      padding-top: 12px;
+      border-top: 1px solid var(--border-hairline);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px;
+    }
+
+    .rail-btn {
+      padding: 6px 8px;
+      border-radius: 8px;
+      border: 1px solid var(--border-hairline);
+      background: var(--bg-pill);
+      color: var(--text-secondary);
+      font-size: 11px;
+      font-weight: 500;
+      cursor: pointer;
+      text-align: center;
+    }
+
+    .rail-btn:hover { background: var(--bg-pill-hover); color: var(--text-primary); }
+    .rail-btn.danger:hover { color: var(--accent-coral); border-color: rgba(255, 99, 99, 0.4); }
+
+    /* Visual Node Path Bar */
+    .node-strip {
+      display: flex;
+      gap: 10px;
+      overflow-x: auto;
+      padding: 4px 2px 14px;
+      margin-bottom: 22px;
+    }
+
+    .node-chip {
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 13px;
+      border-radius: 12px;
+      background: var(--bg-elevated);
+      border: 1px solid var(--border-hairline);
+      color: var(--text-secondary);
+      font-size: 12px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.16s ease;
+    }
+
+    .node-chip:hover { border-color: var(--border-strong); color: var(--text-primary); transform: translateY(-1px); }
+    .node-chip.done { border-color: rgba(89, 212, 153, 0.35); color: var(--accent-emerald); }
+
+    /* Overview Grid */
+    .overview-box {
+      background: var(--bg-elevated);
+      border-radius: 18px;
+      padding: 24px;
+      box-shadow: var(--shadow-card);
+      margin-bottom: 24px;
+    }
+
+    .skills-cols {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 14px;
+      margin-top: 16px;
+    }
+
+    .skill-group {
+      padding: 16px;
+      border-radius: 14px;
+      background: var(--bg-pill);
+      border: 1px solid var(--border-hairline);
+    }
+
+    .skill-group h4 {
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 10px;
+      color: var(--text-primary);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .tag-cloud { display: flex; flex-wrap: wrap; gap: 6px; }
+    .skill-tag {
+      font-size: 12px;
+      padding: 4px 9px;
+      border-radius: 7px;
+      background: var(--bg-elevated);
+      border: 1px solid var(--border-hairline);
+      color: var(--text-secondary);
+    }
+
+    /* Topic Module Cards */
+    .topic-card {
+      background: var(--bg-elevated);
+      border-radius: 18px;
+      padding: 22px 24px;
+      box-shadow: var(--shadow-card);
+      margin-bottom: 18px;
+      border-left: 3px solid var(--border-strong);
+      transition: border-color 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .topic-card.in-prog { border-left-color: var(--accent-amber); }
+    .topic-card.completed { border-left-color: var(--accent-emerald); }
+
+    .topic-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      cursor: pointer;
+    }
+
+    .topic-title-wrap {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .topic-icon-box {
+      width: 38px;
+      height: 38px;
+      border-radius: 11px;
+      display: grid;
+      place-items: center;
+      background: var(--accent-indigo-soft);
+      color: var(--accent-indigo);
+      border: 1px solid rgba(99, 161, 255, 0.22);
+      flex-shrink: 0;
+    }
+
+    .topic-card.completed .topic-icon-box {
+      background: var(--accent-emerald-soft);
+      color: var(--accent-emerald);
+      border-color: rgba(89, 212, 153, 0.25);
+    }
+
+    .topic-title {
+      font-size: 17px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    .topic-body { margin-top: 18px; padding-top: 18px; border-top: 1px solid var(--border-hairline); }
+    .topic-card.collapsed .topic-body { display: none; }
+
+    .sub-block-title {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-muted);
+      margin: 16px 0 10px;
+    }
+
+    .sub-block-title:first-child { margin-top: 0; }
+
+    /* Interactive Checklist Items */
+    .check-row {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 10px;
+      padding: 9px 12px;
+      border-radius: 10px;
+      background: var(--bg-pill);
+      border: 1px solid transparent;
+      margin-bottom: 6px;
+      transition: all 0.15s ease;
+    }
+
+    .check-row:hover { border-color: var(--border-hairline); background: var(--bg-surface-hover); }
+
+    .check-label {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      cursor: pointer;
+      font-size: 13.5px;
+      line-height: 1.45;
+      flex: 1;
+      min-width: 220px;
+    }
+
+    .check-label input[type="checkbox"] {
+      appearance: none;
+      -webkit-appearance: none;
+      width: 17px;
+      height: 17px;
+      margin-top: 2px;
+      border-radius: 5px;
+      border: 1.5px solid var(--border-strong);
+      background: var(--bg-canvas);
+      cursor: pointer;
+      display: grid;
+      place-content: center;
+      flex-shrink: 0;
+      transition: all 0.15s ease;
+    }
+
+    .check-label input[type="checkbox"]:checked {
+      background: var(--accent-emerald);
+      border-color: var(--accent-emerald);
+    }
+
+    .check-label input[type="checkbox"]:checked::before {
+      content: "";
+      width: 9px;
+      height: 5px;
+      border-left: 2px solid #06130c;
+      border-bottom: 2px solid #06130c;
+      transform: rotate(-45deg) translate(1px, -1px);
+    }
+
+    .check-row.checked .check-text {
+      text-decoration: line-through;
+      color: var(--text-muted);
+    }
+
+    /* Inline Resource Pills & Skip Warning Badges */
+    .inline-links {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .res-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 4px 10px;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 500;
+      text-decoration: none;
+      background: var(--accent-indigo-soft);
+      color: var(--accent-indigo);
+      border: 1px solid rgba(99, 161, 255, 0.25);
+      transition: all 0.15s ease;
+    }
+
+    .res-pill:hover {
+      transform: translateY(-1px);
+      background: rgba(99, 161, 255, 0.22);
+    }
+
+    .skip-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 600;
+      padding: 3px 8px;
+      border-radius: 7px;
+      background: var(--accent-amber-soft);
+      color: var(--accent-amber);
+      border: 1px solid rgba(255, 197, 49, 0.3);
+    }
+
+    .callout-box {
+      margin-top: 14px;
+      padding: 13px 16px;
+      border-radius: 12px;
+      background: rgba(99, 161, 255, 0.06);
+      border: 1px solid rgba(99, 161, 255, 0.2);
+      font-size: 13px;
+      color: var(--text-secondary);
+      line-height: 1.5;
+    }
+
+    .callout-box ul { padding-left: 18px; margin-top: 6px; }
+    .callout-box li { margin-bottom: 4px; }
+
+    /* Personal Study Notes Scratchpad */
+    .notes-wrap { margin-top: 14px; }
+    .notes-toggle {
+      background: none;
+      border: 1px dashed var(--border-strong);
+      color: var(--text-secondary);
+      font-size: 12px;
+      padding: 5px 11px;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    .notes-toggle:hover { color: var(--text-primary); border-color: var(--text-secondary); }
+    .notes-area {
+      width: 100%;
+      min-height: 76px;
+      margin-top: 8px;
+      padding: 10px 12px;
+      border-radius: 10px;
+      border: 1px solid var(--border-strong);
+      background: var(--bg-canvas);
+      color: var(--text-primary);
+      font-family: var(--font-sans);
+      font-size: 13px;
+      resize: vertical;
+      display: none;
+    }
+    .notes-area.open { display: block; }
+
+    /* ==========================================================================
+       7. RESOURCES VAULT VIEW (STRIPE DOCS / RAYCAST EXTENSION STORE STYLE)
+       ========================================================================== */
+    .vault-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 16px;
+    }
+
+    .cat-card {
+      background: var(--bg-elevated);
+      border-radius: 18px;
+      padding: 22px;
+      box-shadow: var(--shadow-card);
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .cat-card:hover {
+      transform: translateY(-3px);
+      background: var(--bg-surface-hover);
+      box-shadow: 0 18px 36px -10px rgba(0, 0, 0, 0.55), 0 0 0 1px rgba(255, 99, 99, 0.35), var(--specular-top);
+    }
+
+    .cat-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .cat-icon {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(135deg, rgba(255, 99, 99, 0.18), rgba(99, 161, 255, 0.14));
+      border: 1px solid rgba(255, 99, 99, 0.28);
+      color: var(--accent-coral);
+    }
+
+    .cat-count {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      padding: 4px 9px;
+      border-radius: 99px;
+      background: var(--bg-pill);
+      border: 1px solid var(--border-hairline);
+      color: var(--text-secondary);
+    }
+
+    .cat-title { font-size: 16.5px; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 6px; }
+    .cat-desc { font-size: 13px; color: var(--text-secondary); line-height: 1.5; }
+
+    .cat-action {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12.5px;
+      font-weight: 600;
+      color: var(--accent-coral);
+    }
+
+    /* Level 2: Category Detail Items */
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 7px 14px;
+      border-radius: 10px;
+      border: 1px solid var(--border-strong);
+      background: var(--bg-elevated);
+      color: var(--text-primary);
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      margin-bottom: 18px;
+    }
+
+    .back-btn:hover { background: var(--bg-surface-hover); }
+
+    .res-items-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 14px;
+      margin-top: 16px;
+    }
+
+    .res-item-card {
+      background: var(--bg-elevated);
+      border-radius: 15px;
+      padding: 18px;
+      box-shadow: var(--shadow-card);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .res-item-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .res-item-title { font-size: 15px; font-weight: 650; line-height: 1.35; }
+    .res-item-desc { font-size: 13px; color: var(--text-secondary); line-height: 1.5; }
+
+    .star-btn {
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      font-size: 17px;
+      cursor: pointer;
+      line-height: 1;
+    }
+    .star-btn.saved { color: var(--accent-amber); }
+
+    .template-pre {
+      padding: 12px;
+      border-radius: 10px;
+      background: var(--bg-canvas);
+      border: 1px solid var(--border-hairline);
+      font-family: var(--font-sans);
+      font-size: 12.5px;
+      color: var(--text-secondary);
+      white-space: pre-wrap;
+      line-height: 1.5;
+    }
+
+    .res-item-foot {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      padding-top: 10px;
+      border-top: 1px solid var(--border-hairline);
+    }
+
+    .subtag-chip {
+      font-family: var(--font-mono);
+      font-size: 10.5px;
+      padding: 2px 8px;
+      border-radius: 6px;
+      background: var(--bg-pill);
+      color: var(--text-secondary);
+    }
+
+    /* ==========================================================================
+       8. COMMAND PALETTE MODAL (Ctrl+K / Cmd+K)
+       ========================================================================== */
+    .cmd-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.65);
+      backdrop-filter: blur(6px);
+      z-index: 300;
+      display: none;
+      place-items: start center;
+      padding-top: 11vh;
+    }
+
+    .cmd-overlay.open { display: grid; }
+
+    .cmd-modal {
+      width: min(640px, 92vw);
+      background: var(--bg-elevated);
+      border-radius: 18px;
+      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.75), 0 0 0 1px var(--border-strong), var(--specular-top);
+      overflow: hidden;
+    }
+
+    .cmd-input-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 15px 18px;
+      border-bottom: 1px solid var(--border-hairline);
+    }
+
+    .cmd-input {
+      flex: 1;
+      background: transparent;
+      border: none;
+      outline: none;
+      color: var(--text-primary);
+      font-size: 15px;
+      font-family: var(--font-sans);
+    }
+
+    .cmd-results {
+      max-height: 360px;
+      overflow-y: auto;
+      padding: 8px;
+    }
+
+    .cmd-result-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 10px 12px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 13.5px;
+    }
+
+    .cmd-result-item:hover { background: var(--bg-pill-hover); }
+
+    /* ==========================================================================
+       9. TOAST & FOOTER
+       ========================================================================== */
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      z-index: 400;
+      padding: 11px 16px;
+      border-radius: 12px;
+      background: var(--bg-elevated);
+      color: var(--text-primary);
+      font-size: 13px;
+      font-weight: 500;
+      box-shadow: var(--shadow-window);
+      border: 1px solid var(--border-strong);
+      transform: translateY(20px);
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.25s ease;
+    }
+
+    .toast.show { transform: translateY(0); opacity: 1; }
+
+    footer {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: 24px 16px 32px;
+      border-top: 1px solid var(--border-hairline);
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    #ayushTrigger {
+      color: inherit;
+      font-weight: inherit;
+      cursor: text;
+      padding: 0;
+      border-radius: 0;
+    }
+
+    #ayushTrigger:hover {
+      color: inherit;
+      background: none;
+    }
+
+    /* Responsive */
+    @media (max-width: 960px) {
+      .bento-grid { grid-template-columns: 1fr; }
+      .docs-layout { grid-template-columns: 1fr; }
+      .sidebar-rail { position: static; max-height: none; }
+    }
+
+    @media (max-width: 680px) {
+      .navbar { flex-wrap: wrap; }
+      .brand-sub, .cmd-trigger span { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="ambient-glow"></div>
+
+  <!-- SVG Gradient Definition -->
+  <svg width="0" height="0" style="position:absolute">
+    <defs>
+      <linearGradient id="raycastGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#FF6363" />
+        <stop offset="100%" stop-color="#63A1FF" />
+      </linearGradient>
+    </defs>
+  </svg>
+
+  <!-- Floating Raycast-Style Command Header -->
+  <header class="navbar-wrap">
+    <nav class="navbar" aria-label="Primary Navigation">
+      <div class="brand" onclick="switchView('tracker')">
+        <div class="brand-icon" aria-hidden="true">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+            <path d="M12 2L21 7V17L12 22L3 17V7L12 2Z" stroke="#FF6363" stroke-width="2" stroke-linejoin="round"/>
+            <circle cx="12" cy="12" r="3" fill="#FF6363"/>
+          </svg>
+        </div>
+        <div class="brand-text">
+          <span class="brand-title">AI Engineer Roadmap</span>
+          <span class="brand-sub">2026 EDITION • SELF-PACED</span>
+        </div>
+      </div>
+
+      <div class="nav-tabs" role="tablist">
+        <button class="nav-tab active" data-view="tracker" onclick="switchView('tracker')">
+          <span>Progress Tracker</span>
+          <span class="tab-badge" id="navPctBadge">0%</span>
+        </button>
+        <button class="nav-tab" data-view="curriculum" onclick="switchView('curriculum')">
+          <span>Curriculum</span>
+        </button>
+        <button class="nav-tab" data-view="resources" onclick="switchView('resources')">
+          <span>Resources</span>
+        </button>
+      </div>
+
+      <div class="nav-actions">
+        <button class="cmd-trigger" onclick="openCmdPalette()" title="Search topics &amp; resources">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+          <span>Search…</span>
+          <kbd>Ctrl K</kbd>
+        </button>
+        <button class="icon-btn" id="themeBtn" onclick="toggleTheme()" title="Toggle Dark/Light Theme" aria-label="Toggle Theme">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <main class="container">
+    <!-- ====================================================================
+         VIEW 1: PROGRESS TRACKER HUB
+         ==================================================================== -->
+    <section id="view-tracker" class="view-section active">
+      <div class="hero-eyebrow">⚡ COMMAND CENTER</div>
+      <h1 class="hero-title">Progress Tracker Hub</h1>
+      <p class="hero-desc">Self-paced, topic-by-topic AI engineering mastery. Track every concept, hands-on assignment, and curated resource in one place.</p>
+
+      <!-- Bento Grid -->
+      <div class="bento-grid">
+        <!-- Card 1: Mastery Ring -->
+        <div class="bento-card">
+          <div class="bento-label">✦ OVERALL MASTERY</div>
+          <div class="ring-row">
+            <div class="ring-wrap">
+              <svg viewBox="0 0 100 100">
+                <circle class="ring-bg" cx="50" cy="50" r="42" />
+                <circle class="ring-fg" id="masteryRing" cx="50" cy="50" r="42" stroke-dasharray="263.89" stroke-dashoffset="263.89" />
+              </svg>
+              <div class="ring-center" id="ringPctText">0%</div>
+            </div>
+            <div class="ring-stats">
+              <h3 id="tasksFraction">0 / 0 Tasks</h3>
+              <p id="masterySubtext">Check off topics and assignments as you build.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 2: Up Next Spotlight -->
+        <div class="bento-card">
+          <div class="bento-label">▶ CONTINUE LEARNING</div>
+          <div>
+            <div class="up-next-title" id="upNextTitle">Ready to start Module 01</div>
+            <div class="up-next-sub" id="upNextSub">Jump straight to your next uncompleted topic.</div>
+          </div>
+          <div>
+            <button class="btn-primary" id="upNextBtn">Resume Topic →</button>
+          </div>
+        </div>
+
+        <!-- Card 3: Quick Metrics -->
+        <div class="bento-card">
+          <div class="bento-label">◈ MILESTONES</div>
+          <div class="mini-stats">
+            <div class="mini-stat-box">
+              <div class="mini-stat-val" id="statModules">0 / 0</div>
+              <div class="mini-stat-lbl">Topics Mastered</div>
+            </div>
+            <div class="mini-stat-box">
+              <div class="mini-stat-val" id="statSaved">0</div>
+              <div class="mini-stat-lbl">Saved Links</div>
+            </div>
+            <div class="mini-stat-box">
+              <div class="mini-stat-val" id="statStreak">0 Days</div>
+              <div class="mini-stat-lbl" id="statStreakSub">Study streak</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Topic-by-Topic Matrix -->
+      <div class="section-bar">
+        <h2 class="section-heading">Topic-by-Topic Status</h2>
+        <div class="filter-pills" id="matrixFilters">
+          <button class="pill-btn active" onclick="setMatrixFilter('all', this)">All</button>
+          <button class="pill-btn" onclick="setMatrixFilter('prog', this)">In Progress</button>
+          <button class="pill-btn" onclick="setMatrixFilter('idle', this)">Not Started</button>
+          <button class="pill-btn" onclick="setMatrixFilter('done', this)">Completed</button>
+        </div>
+      </div>
+
+      <div class="matrix-grid" id="matrixGrid"></div>
+    </section>
+
+    <!-- ====================================================================
+         VIEW 2: CURRICULUM (TOPIC-BY-TOPIC)
+         ==================================================================== -->
+    <section id="view-curriculum" class="view-section">
+      <!-- Visual Node Path Strip -->
+      <div class="node-strip" id="nodeStrip"></div>
+
+      <div class="docs-layout">
+        <!-- Sticky Left Navigation Rail -->
+        <aside class="sidebar-rail" aria-label="Curriculum Topics">
+          <div class="bento-label" style="margin-bottom:8px;">CURRICULUM INDEX</div>
+          <div class="rail-list" id="railList"></div>
+          <div class="rail-footer">
+            <button class="rail-btn" onclick="toggleAllModules(false)">Expand All</button>
+            <button class="rail-btn" onclick="toggleAllModules(true)">Collapse All</button>
+            <button class="rail-btn" onclick="exportProgress()">Export JSON</button>
+            <button class="rail-btn danger" onclick="resetProgress()">Reset 0%</button>
+          </div>
+        </aside>
+
+        <!-- Main Curriculum Stream -->
+        <div>
+          <div class="overview-box" id="overviewSection"></div>
+          <div id="modulesContainer"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         VIEW 3: CURATED RESOURCE VAULT
+         ==================================================================== -->
+    <section id="view-resources" class="view-section">
+      <!-- Level 1: Category Directory -->
+      <div id="vaultLevel1">
+        <div class="hero-eyebrow">◈ CURATED VAULT</div>
+        <h1 class="hero-title">AI Engineer Resource Vault</h1>
+        <p class="hero-desc">Zero clutter. Browse organized categories of hiring platforms, outreach templates, repositories, datasets, and AI tools.</p>
+
+        <div class="section-bar">
+          <div class="filter-pills" id="vaultTagFilters"></div>
+          <button class="pill-btn" id="savedOnlyBtn" onclick="toggleSavedVault()">★ Saved Only</button>
+        </div>
+
+        <div class="vault-grid" id="vaultGrid"></div>
+      </div>
+
+      <!-- Level 2: Category Detail View -->
+      <div id="vaultLevel2" style="display:none;">
+        <button class="back-btn" onclick="closeCategory()">← Back to All Categories</button>
+        <h2 class="hero-title" id="detailCatTitle" style="font-size:28px;"></h2>
+        <p class="hero-desc" id="detailCatDesc"></p>
+        <div class="filter-pills" id="detailSubFilters"></div>
+        <div class="res-items-grid" id="detailItemsGrid"></div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Command Palette Search Modal -->
+  <div class="cmd-overlay" id="cmdOverlay" onclick="if(event.target===this) closeCmdPalette()">
+    <div class="cmd-modal" role="dialog" aria-label="Quick Search">
+      <div class="cmd-input-row">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+        <input type="text" class="cmd-input" id="cmdInput" placeholder="Search any AI topic, video skip note, tool, or template..." oninput="runCommandSearch(this.value)" />
+        <kbd>ESC</kbd>
+      </div>
+      <div class="cmd-results" id="cmdResults"></div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <footer>
+    Made by <span id="ayushTrigger" onclick="triggerDemoProgress()">ayush8bit</span>
+  </footer>
+
+  <!-- Load Existing Decoupled Data Files -->
+  <script src="./roadmap-data.js"></script>
+  <script src="./resources-data.js"></script>
+
+  <script>
+    /* ========================================================================
+       APPLICATION STATE & DATA NORMALIZATION
+       ======================================================================== */
+    const STORAGE_KEY = "ai_roadmap_2026_checked_v1";
+    const NOTES_KEY   = "ai_roadmap_2026_notes_v1";
+    const SAVED_KEY   = "ai_roadmap_2026_saved_res_v1";
+    const THEME_KEY   = "ai_roadmap_2026_theme_v1";
+    const STREAK_KEY  = "ai_roadmap_2026_streak_start";
+
+    function getLiveStreakDays() {
+      const startStr = localStorage.getItem(STREAK_KEY);
+      if (!startStr) return 0;
+      const [y, m, d] = startStr.split("-").map(Number);
+      const start = new Date(y, m - 1, d);
+      const now = new Date();
+      const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+      const diffDays = Math.floor((today - start) / (1000 * 60 * 60 * 24)) + 1;
+      return Math.max(1, diffDays);
+    }
+
+    function liveStreakLabel() {
+      const startStr = localStorage.getItem(STREAK_KEY);
+      if (!startStr) return "Start today";
+      const [y, m, d] = startStr.split("-").map(Number);
+      const label = new Date(y, m - 1, d).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
+      return "Active since " + label;
+    }
+
+    let checkedMap = JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}");
+    let notesMap   = JSON.parse(localStorage.getItem(NOTES_KEY)   || "{}");
+    let savedRes   = JSON.parse(localStorage.getItem(SAVED_KEY)   || "{}");
+    let matrixFilter = "all";
+    let activeCatId  = null;
+    let activeSubTag = "All";
+    let vaultTag     = "All";
+    let savedOnly    = false;
+    let demoActive   = false;
+    let demoSnapshot = null;
+
+    const ROADMAP = window.ROADMAP_DATA || { overview: {}, weeks: [], modules: [] };
+    // Resolve the flat teaching content. `modules[]` are chapter shells that reference
+    // week numbers, while `weeks[]` holds the actual topics/subTopics, assignments,
+    // resources and community callouts. Merge each module's child weeks onto the module
+    // so the renderer sees topics, assignments and resources on every task.
+    const RP_WEEKS = ROADMAP.weeks || [];
+    const RP_MODULES = ROADMAP.modules && ROADMAP.modules.length ? ROADMAP.modules : RP_WEEKS;
+    const MODULES = RP_MODULES.map((m, idx) => {
+      const weekRefs = (m.weeks || []).map(x => (typeof x === "object" ? x.number : x)).filter(Boolean);
+      const childWeeks = weekRefs.length ? RP_WEEKS.filter(w => weekRefs.indexOf(w.number) !== -1) : [];
+      const source = childWeeks.length
+        ? { topics: (m.topics || []).slice(), assignments: (m.assignments || []).slice(), resources: (m.resources || []).slice(), communityCallout: m.communityCallout }
+        : { topics: m.topics || [], assignments: m.assignments || [], resources: m.resources || [], communityCallout: m.communityCallout };
+      childWeeks.forEach(cw => {
+        (cw.topics || []).forEach(t => source.topics.push(t));
+        (cw.assignments || []).forEach(a => source.assignments.push(a));
+        (cw.resources || []).forEach(r => source.resources.push(r));
+        if (cw.communityCallout && !source.communityCallout) source.communityCallout = cw.communityCallout;
+      });
+      return {
+        ...m,
+        ...source,
+        cleanTitle: (m.title || `Topic ${idx + 1}`).replace(/^Week\s*\d+(\s*[-–,]\s*\d+)?(\s*onwards)?\s*[:.-]?\s*/i, "").trim(),
+        modNumber: String(idx + 1).padStart(2, "0")
+      };
+    });
+
+    const RESOURCES_RAW = window.RESOURCES_DATA || { categories: [] };
+    const CATEGORIES = (RESOURCES_RAW.categories || []).map(c => ({
+      ...c,
+      description: c.description || c.desc,
+      items: (c.items || []).map(i => ({ ...i, description: i.description || i.summary }))
+    }));
+
+    /* ========================================================================
+       THEME & NAVIGATION
+       ======================================================================== */
+    function initTheme() {
+      const saved = localStorage.getItem(THEME_KEY) || "dark";
+      document.documentElement.setAttribute("data-theme", saved);
+    }
+
+    function toggleTheme() {
+      const curr = document.documentElement.getAttribute("data-theme");
+      const next = curr === "dark" ? "light" : "dark";
+      document.documentElement.setAttribute("data-theme", next);
+      localStorage.setItem(THEME_KEY, next);
+    }
+
+    function switchView(viewName) {
+      document.querySelectorAll(".view-section").forEach(el => el.classList.remove("active"));
+      document.querySelectorAll(".nav-tab").forEach(btn => {
+        btn.classList.toggle("active", btn.dataset.view === viewName);
+      });
+      const target = document.getElementById(`view-${viewName}`);
+      if (target) target.classList.add("active");
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function showToast(msg) {
+      const t = document.getElementById("toast");
+      t.textContent = msg;
+      t.classList.add("show");
+      clearTimeout(window._toastTimer);
+      window._toastTimer = setTimeout(() => t.classList.remove("show"), 3000);
+    }
+
+    /* ========================================================================
+       TASK EXTRACTION & PROGRESS CALCULATION
+       ======================================================================== */
+    function getModuleTasks(mod) {
+      const tasks = [];
+      (mod.topics || []).forEach((t, ti) => {
+        if (t.subTopics && t.subTopics.length) {
+          t.subTopics.forEach((st, si) => {
+            tasks.push({ id: st.id || `${mod.id}-t${ti}-s${si}`, label: st.title, group: t.title });
+          });
+        } else {
+          tasks.push({ id: t.id || `${mod.id}-t${ti}`, label: t.title, group: "Topic" });
+        }
+      });
+      (mod.assignments || []).forEach((a, ai) => {
+        tasks.push({ id: a.id || `${mod.id}-a${ai}`, label: a.title, group: "Assignment" });
+      });
+      return tasks;
+    }
+
+    function getModuleStats(mod) {
+      const tasks = getModuleTasks(mod);
+      const total = tasks.length;
+      const done  = tasks.filter(t => !!checkedMap[t.id]).length;
+      const pct   = total ? Math.round((done / total) * 100) : 0;
+      const state = done === 0 ? "idle" : (done === total ? "done" : "prog");
+      return { tasks, total, done, pct, state };
+    }
+
+    function toggleTask(taskId, modId) {
+      checkedMap[taskId] = !checkedMap[taskId];
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(checkedMap));
+      const mod = MODULES.find(m => m.id === modId);
+      if (mod) {
+        const st = getModuleStats(mod);
+        if (st.pct === 100 && checkedMap[taskId]) {
+          showToast(`🎉 Topic Mastered: ${mod.cleanTitle}`);
+        }
+      }
+      renderAll();
+    }
+
+    /* ========================================================================
+       SECRET EASTER EGG: CLICKING "ayush8bit" (~37% OVERALL, 92-95% EARLY)
+       ======================================================================== */
+    function triggerDemoProgress() {
+      if (demoActive) {
+        // Restore the user's real state that was snapshotted before the demo
+        if (demoSnapshot) {
+          checkedMap = demoSnapshot.checkedMap;
+          notesMap = demoSnapshot.notesMap;
+          savedRes = demoSnapshot.savedRes;
+          if (demoSnapshot.streak) localStorage.setItem(STREAK_KEY, demoSnapshot.streak);
+          else localStorage.removeItem(STREAK_KEY);
+        }
+        demoSnapshot = null;
+        demoActive = false;
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(checkedMap));
+        localStorage.setItem(NOTES_KEY, JSON.stringify(notesMap));
+        localStorage.setItem(SAVED_KEY, JSON.stringify(savedRes));
+        renderAll();
+        return;
+      }
+
+      // Snapshot the user's real state before applying the demo profile
+      demoSnapshot = {
+        checkedMap: Object.assign({}, checkedMap),
+        notesMap: Object.assign({}, notesMap),
+        savedRes: Object.assign({}, savedRes),
+        streak: localStorage.getItem(STREAK_KEY)
+      };
+
+      const allTasksByMod = MODULES.map(m => ({ mod: m, tasks: getModuleTasks(m) }));
+      const grandTotal = allTasksByMod.reduce((acc, x) => acc + x.tasks.length, 0);
+      const targetTotal = Math.round(grandTotal * 0.39);
+
+      const newMap = {};
+      let currentDone = 0;
+
+      // Early modules (first 5): set to 92%-95% (leave at least 1 unchecked so none hit 100%)
+      allTasksByMod.forEach((entry, idx) => {
+        const n = entry.tasks.length;
+        if (n === 0) return;
+        if (idx < 5) {
+          let desired = Math.round(n * (0.92 + (idx % 4) * 0.01));
+          if (desired >= n) desired = n - 1;
+          if (desired < 1 && n > 1) desired = 1;
+          for (let i = 0; i < desired; i++) {
+            newMap[entry.tasks[i].id] = true;
+            currentDone++;
+          }
+        }
+      });
+
+      // Middle modules (idx 5, 6, 7...): fill until overall hits ~37%
+      for (let idx = 5; idx < allTasksByMod.length && currentDone < targetTotal; idx++) {
+        const entry = allTasksByMod[idx];
+        const maxForMod = Math.max(1, entry.tasks.length - 1);
+        for (let i = 0; i < maxForMod && currentDone < targetTotal; i++) {
+          newMap[entry.tasks[i].id] = true;
+          currentDone++;
+        }
+      }
+
+      // Realistic personal study notes for early / in-progress modules
+      const noteRecipes = [
+        [0, "Python fundamentals: f-strings, list/dict comprehensions, venv + pip freeze.\nPractice repo: https://github.com/yourname/python-foundations"],
+        [1, "Git branching workflow: git checkout -b feature, rebase main before merge. Commit in small units."],
+        [2, "EDA: use pandas-profiling (ydata-profiling) for quick reports before modeling. Notebook kept in ./eda/."],
+        [3, "SQL joins cheat: INNER = intersection; LEFT keeps all left rows; watch duplicate row multiplication."],
+        [4, "ML preprocessing reminders: impute missing, scale features, split train/val/test, log skewed targets."],
+        [5, "NumPy/Pandas EDA checklist: df.info(), describe(), locate nulls, then visualise distributions before any modeling."]
+      ];
+      const myNotes = {};
+      noteRecipes.forEach(function (pair) {
+        const mm = allTasksByMod[pair[0]];
+        if (mm) myNotes[mm.mod.id] = pair[1];
+      });
+      notesMap = myNotes;
+
+      // Star high-value resources across categories (12–15 total)
+      const starRecipe = { companies: 3, templates: 5, github: 3, tools: 3 };
+      const mySaved = {};
+      CATEGORIES.forEach(function (cat) {
+        const take = starRecipe[cat.id] || 0;
+        (cat.items || []).slice(0, take).forEach(function (it) { if (it.id) mySaved[it.id] = true; });
+      });
+      savedRes = mySaved;
+
+      localStorage.setItem(STREAK_KEY, "2026-08-19");
+      checkedMap = newMap;
+      demoActive = true;
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(checkedMap));
+      localStorage.setItem(NOTES_KEY, JSON.stringify(notesMap));
+      localStorage.setItem(SAVED_KEY, JSON.stringify(savedRes));
+      renderAll();
+    }
+
+    /* ========================================================================
+       RENDER TRACKER & MATRIX
+       ======================================================================== */
+    function setMatrixFilter(filter, btn) {
+      matrixFilter = filter;
+      document.querySelectorAll("#matrixFilters .pill-btn").forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+      renderTracker();
+    }
+
+    function renderTracker() {
+      let totalTasks = 0, doneTasks = 0, masteredMods = 0;
+      let upNext = null;
+
+      MODULES.forEach(mod => {
+        const st = getModuleStats(mod);
+        totalTasks += st.total;
+        doneTasks  += st.done;
+        if (st.total > 0 && st.done === st.total) masteredMods++;
+        if (!upNext && st.done < st.total) {
+          const nextTask = st.tasks.find(t => !checkedMap[t.id]);
+          upNext = { mod, task: nextTask };
+        }
+      });
+
+      const pct = totalTasks ? Math.round((doneTasks / totalTasks) * 100) : 0;
+      document.getElementById("navPctBadge").textContent = `${pct}%`;
+      document.getElementById("ringPctText").textContent = `${pct}%`;
+      document.getElementById("tasksFraction").textContent = `${doneTasks} / ${totalTasks} Tasks`;
+      document.getElementById("statModules").textContent = `${masteredMods} / ${MODULES.length}`;
+      document.getElementById("statSaved").textContent = Object.values(savedRes).filter(Boolean).length;
+      const skDays = getLiveStreakDays();
+      document.getElementById("statStreak").textContent = `${skDays} ${skDays === 1 ? "Day" : "Days"}`;
+      document.getElementById("statStreakSub").textContent = liveStreakLabel();
+
+      const circumference = 263.89;
+      document.getElementById("masteryRing").style.strokeDashoffset = circumference - (pct / 100) * circumference;
+
+      if (upNext) {
+        document.getElementById("upNextTitle").textContent = `${upNext.mod.modNumber}. ${upNext.mod.cleanTitle}`;
+        document.getElementById("upNextSub").textContent = upNext.task ? `Next up: ${upNext.task.label}` : "Continue module";
+        document.getElementById("upNextBtn").onclick = () => jumpToModule(upNext.mod.id);
+      } else {
+        document.getElementById("upNextTitle").textContent = "All Curriculum Topics Completed!";
+        document.getElementById("upNextSub").textContent = "Explore the Resource Vault for projects & job prep.";
+        document.getElementById("upNextBtn").onclick = () => switchView("resources");
+      }
+
+      const grid = document.getElementById("matrixGrid");
+      grid.innerHTML = MODULES.map(mod => {
+        const st = getModuleStats(mod);
+        if (matrixFilter !== "all" && st.state !== matrixFilter) return "";
+        const badgeText = st.state === "done" ? "MASTERED" : (st.state === "prog" ? "IN PROGRESS" : "NOT STARTED");
+        return `
+          <div class="matrix-card" onclick="jumpToModule('${mod.id}')">
+            <div>
+              <div class="matrix-top">
+                <span class="mod-num">TOPIC ${mod.modNumber}</span>
+                <span class="status-tag ${st.state}">${badgeText}</span>
+              </div>
+              <div class="matrix-title" style="margin-top:12px;">${mod.cleanTitle}</div>
+            </div>
+            <div>
+              <div class="prog-track"><div class="prog-fill ${st.state==='done'?'complete':''}" style="width:${st.pct}%"></div></div>
+              <div class="matrix-foot" style="margin-top:8px;">
+                <span>${st.done}/${st.total} items</span>
+                <span>${st.pct}%</span>
+              </div>
+            </div>
+          </div>`;
+      }).join("");
+    }
+
+    function jumpToModule(modId) {
+      switchView("curriculum");
+      setTimeout(() => {
+        const el = document.getElementById(`card-${modId}`);
+        if (el) {
+          el.classList.remove("collapsed");
+          el.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+      }, 60);
+    }
+
+    /* ========================================================================
+       RENDER CURRICULUM (OVERVIEW + TOPIC CARDS + INLINE LINKS & SKIPS)
+       ======================================================================== */
+    function renderCurriculum() {
+      // 1. Visual Node Path Strip
+      document.getElementById("nodeStrip").innerHTML = MODULES.map(mod => {
+        const st = getModuleStats(mod);
+        return `
+          <button class="node-chip ${st.state === 'done' ? 'done' : ''}" onclick="jumpToModule('${mod.id}')">
+            <span class="rail-dot ${st.state}"></span>
+            <span>${mod.modNumber}. ${mod.cleanTitle}</span>
+            <strong style="font-family:var(--font-mono);font-size:11px;">${st.pct}%</strong>
+          </button>`;
+      }).join("");
+
+      // 2. Left Navigation Rail
+      document.getElementById("railList").innerHTML = `
+        <a class="rail-item" onclick="document.getElementById('overviewSection').scrollIntoView({behavior:'smooth'})">
+          <span>◈ Overview &amp; Mindset</span>
+        </a>
+        ${MODULES.map(mod => {
+          const st = getModuleStats(mod);
+          return `
+            <a class="rail-item" onclick="jumpToModule('${mod.id}')">
+              <span style="display:flex;align-items:center;gap:8px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">
+                <span class="rail-dot ${st.state}"></span>
+                <span>${mod.modNumber}. ${mod.cleanTitle}</span>
+              </span>
+              <span style="font-family:var(--font-mono);font-size:10.5px;">${st.pct}%</span>
+            </a>`;
+        }).join("")}`;
+
+      // 3. Overview Section
+      const ov = ROADMAP.overview || {};
+      document.getElementById("overviewSection").innerHTML = `
+        <div class="bento-label">◈ FOUNDATION &amp; MINDSET</div>
+        <h2 class="topic-title" style="font-size:20px;margin-bottom:6px;">${ov.title || "Overview & Handyman Mindset"}</h2>
+        <p style="font-size:13.5px;color:var(--text-secondary);line-height:1.5;">
+          ${ov.handymanMindset?.description || "Build strong fundamentals, master core tools, and choose the right approach (Rule-Based, Statistical ML, Deep Learning, or Gen AI) for every problem."}
+        </p>
+        <div class="skills-cols">
+          <div class="skill-group">
+            <h4>⚡ Technical Skills</h4>
+            <div class="tag-cloud">${(ov.techSkills || []).map(s => `<span class="skill-tag">${s}</span>`).join("")}</div>
+          </div>
+          <div class="skill-group">
+            <h4>🎯 Core &amp; Soft Skills</h4>
+            <div class="tag-cloud">${(ov.coreSkills || []).map(s => `<span class="skill-tag">${s}</span>`).join("")}</div>
+          </div>
+          <div class="skill-group">
+            <h4>✨ Good-to-Have Skills</h4>
+            <div class="tag-cloud">${(ov.optionalSkills || []).map(s => `<span class="skill-tag">${s}</span>`).join("")}</div>
+          </div>
+        </div>`;
+
+      // 4. Module Cards (NO Code Snippets, Inline Links + Skip Badges right next to topics)
+      const container = document.getElementById("modulesContainer");
+      container.innerHTML = MODULES.map(mod => {
+        const st = getModuleStats(mod);
+        const stateClass = st.state === "done" ? "completed" : (st.state === "prog" ? "in-prog" : "");
+        const resources = mod.resources || [];
+
+        const topicsHtml = (mod.topics || []).map((t, ti) => {
+          // Match resources relevant to this topic or show primary links inline on first topic
+          const matchedRes = t.resources || (ti === 0 ? resources : []);
+          const linksHtml = matchedRes.map(r => `
+            <a class="res-pill" href="${r.url}" target="_blank" rel="noopener noreferrer">${r.title} ↗</a>
+            ${r.note ? `<span class="skip-badge">⚠ ${r.note}</span>` : ""}
+          `).join("");
+
+          if (t.subTopics && t.subTopics.length) {
+            return `
+              <div style="margin-bottom:12px;">
+                <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:6px;">
+                  <strong style="font-size:13.5px;">${t.title}</strong>
+                  <div class="inline-links">${linksHtml}</div>
+                </div>
+                ${t.subTopics.map((sub, si) => {
+                  const sid = sub.id || `${mod.id}-t${ti}-s${si}`;
+                  const isChk = !!checkedMap[sid];
+                  return `
+                    <div class="check-row ${isChk ? 'checked' : ''}">
+                      <label class="check-label">
+                        <input type="checkbox" ${isChk ? 'checked' : ''} onchange="toggleTask('${sid}', '${mod.id}')" />
+                        <span class="check-text">${sub.title}</span>
+                      </label>
+                    </div>`;
+                }).join("")}
+              </div>`;
+          } else {
+            const tid = t.id || `${mod.id}-t${ti}`;
+            const isChk = !!checkedMap[tid];
+            return `
+              <div class="check-row ${isChk ? 'checked' : ''}">
+                <label class="check-label">
+                  <input type="checkbox" ${isChk ? 'checked' : ''} onchange="toggleTask('${tid}', '${mod.id}')" />
+                  <span class="check-text">${t.title}</span>
+                </label>
+                <div class="inline-links">${linksHtml}</div>
+              </div>`;
+          }
+        }).join("");
+
+        const assignmentsHtml = (mod.assignments || []).length ? `
+          <div class="sub-block-title">HANDS-ON ASSIGNMENTS &amp; PROJECTS</div>
+          ${mod.assignments.map((a, ai) => {
+            const aid = a.id || `${mod.id}-a${ai}`;
+            const isChk = !!checkedMap[aid];
+            return `
+              <div class="check-row ${isChk ? 'checked' : ''}">
+                <label class="check-label">
+                  <input type="checkbox" ${isChk ? 'checked' : ''} onchange="toggleTask('${aid}', '${mod.id}')" />
+                  <span class="check-text"><strong>${a.title}</strong>${a.description ? ` — ${a.description}` : ""}</span>
+                </label>
+                ${a.url ? `<a class="res-pill" href="${a.url}" target="_blank" rel="noopener noreferrer">Open Link ↗</a>` : ""}
+              </div>`;
+          }).join("")}` : "";
+
+        const calloutHtml = mod.communityCallout ? `
+          <div class="callout-box">
+            <strong>💡 ${mod.communityCallout.title || "Core Skills & Action Items"}</strong>
+            <ul>${(mod.communityCallout.items || []).map(item => `<li>${item}</li>`).join("")}</ul>
+          </div>` : "";
+
+        const noteVal = notesMap[mod.id] || "";
+
+        return `
+          <article class="topic-card ${stateClass}" id="card-${mod.id}">
+            <div class="topic-header" onclick="this.parentElement.classList.toggle('collapsed')">
+              <div class="topic-title-wrap">
+                <div class="topic-icon-box" aria-hidden="true">
+                  <span style="font-family:var(--font-mono);font-size:13px;font-weight:700;">${mod.modNumber}</span>
+                </div>
+                <div>
+                  <h3 class="topic-title">${mod.cleanTitle}</h3>
+                  <span style="font-family:var(--font-mono);font-size:11.5px;color:var(--text-muted);">${st.done}/${st.total} completed (${st.pct}%)</span>
+                </div>
+              </div>
+              <span class="status-tag ${st.state}">${st.pct}%</span>
+            </div>
+
+            <div class="topic-body">
+              <div class="sub-block-title">CONCEPTS &amp; INLINE FREE RESOURCES</div>
+              ${topicsHtml}
+              ${assignmentsHtml}
+              ${calloutHtml}
+
+              <div class="notes-wrap">
+                <button class="notes-toggle" onclick="toggleNoteBox('${mod.id}')">📝 Personal Study Notes ${noteVal ? '• Saved' : ''}</button>
+                <textarea class="notes-area" id="note-${mod.id}" placeholder="Write your key takeaways, GitHub repo link, or questions here (auto-saved)..." oninput="saveNote('${mod.id}', this.value)">${noteVal}</textarea>
+              </div>
+            </div>
+          </article>`;
+      }).join("");
+    }
+
+    function toggleAllModules(collapse) {
+      document.querySelectorAll(".topic-card").forEach(c => c.classList.toggle("collapsed", collapse));
+    }
+
+    function toggleNoteBox(modId) {
+      const el = document.getElementById(`note-${modId}`);
+      if (el) { el.classList.toggle("open"); if (el.classList.contains("open")) el.focus(); }
+    }
+
+    function saveNote(modId, val) {
+      notesMap[modId] = val;
+      localStorage.setItem(NOTES_KEY, JSON.stringify(notesMap));
+    }
+
+    /* ========================================================================
+       RENDER RESOURCE VAULT (2-LEVEL ZERO-CLUTTER DIRECTORY)
+       ======================================================================== */
+    function renderVault() {
+      const tags = ["All", ...new Set(CATEGORIES.map(c => c.tag || c.group).filter(Boolean))];
+      document.getElementById("vaultTagFilters").innerHTML = tags.map(t => `
+        <button class="pill-btn ${vaultTag === t ? 'active' : ''}" onclick="vaultTag='${t}';renderVault();">${t}</button>
+      `).join("");
+
+      document.getElementById("savedOnlyBtn").classList.toggle("active", savedOnly);
+
+      const grid = document.getElementById("vaultGrid");
+      if (!CATEGORIES.length) {
+        grid.innerHTML = `<div class="bento-card"><p style="color:var(--text-secondary);">No resource categories found in <code>resources-data.js</code>.</p></div>`;
+        return;
+      }
+
+      grid.innerHTML = CATEGORIES.map(cat => {
+        const items = cat.items || [];
+        if (vaultTag !== "All" && (cat.tag || cat.group) !== vaultTag) return "";
+        if (savedOnly && !items.some((it, idx) => savedRes[it.id || `${cat.id}-${idx}`])) return "";
+
+        return `
+          <div class="cat-card" onclick="openCategory('${cat.id}')">
+            <div>
+              <div class="cat-header">
+                <div class="cat-icon">◈</div>
+                <span class="cat-count">${items.length} items</span>
+              </div>
+              <h3 class="cat-title" style="margin-top:14px;">${cat.title}</h3>
+              <p class="cat-desc">${cat.description || "Curated links, tools, and actionable templates."}</p>
+            </div>
+            <div class="cat-action">Explore Category →</div>
+          </div>`;
+      }).join("");
+    }
+
+    function toggleSavedVault() {
+      savedOnly = !savedOnly;
+      renderVault();
+    }
+
+    function openCategory(catId) {
+      activeCatId = catId;
+      activeSubTag = "All";
+      const cat = CATEGORIES.find(c => c.id === catId);
+      if (!cat) return;
+
+      document.getElementById("vaultLevel1").style.display = "none";
+      document.getElementById("vaultLevel2").style.display = "block";
+      document.getElementById("detailCatTitle").textContent = cat.title;
+      document.getElementById("detailCatDesc").textContent = cat.description || "";
+      renderCategoryItems();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function closeCategory() {
+      activeCatId = null;
+      document.getElementById("vaultLevel2").style.display = "none";
+      document.getElementById("vaultLevel1").style.display = "block";
+      renderVault();
+    }
+
+    function renderCategoryItems() {
+      const cat = CATEGORIES.find(c => c.id === activeCatId);
+      if (!cat) return;
+      const items = cat.items || [];
+      const subTags = ["All", ...new Set(items.map(i => i.subTag || i.tag).filter(Boolean))];
+
+      document.getElementById("detailSubFilters").innerHTML = subTags.length > 1
+        ? subTags.map(st => `<button class="pill-btn ${activeSubTag === st ? 'active' : ''}" onclick="activeSubTag='${st}';renderCategoryItems();">${st}</button>`).join("")
+        : "";
+
+      document.getElementById("detailItemsGrid").innerHTML = items.map((item, idx) => {
+        const iid = item.id || `${cat.id}-${idx}`;
+        const tag = item.subTag || item.tag || "Resource";
+        if (activeSubTag !== "All" && tag !== activeSubTag) return "";
+        if (savedOnly && !savedRes[iid]) return "";
+
+        const isSaved = !!savedRes[iid];
+        const isTemplate = item.type === "template" || !!item.template || !!item.content;
+
+        return `
+          <div class="res-item-card">
+            <div>
+              <div class="res-item-top">
+                <div class="res-item-title">${item.title}</div>
+                <button class="star-btn ${isSaved ? 'saved' : ''}" onclick="toggleSaveRes('${iid}')" title="Save resource">${isSaved ? '★' : '☆'}</button>
+              </div>
+              ${item.description ? `<p class="res-item-desc" style="margin-top:6px;">${item.description}</p>` : ""}
+              ${isTemplate ? `<pre class="template-pre" style="margin-top:10px;">${item.template || item.content}</pre>` : ""}
+            </div>
+            <div class="res-item-foot">
+              <span class="subtag-chip">${tag}</span>
+              ${isTemplate
+                ? `<button class="res-pill" style="cursor:pointer;" onclick="copyTemplateText(this, \`${(item.template || item.content || "").replace(/`/g, "\\`")}\`)">Copy Template</button>`
+                : (item.url ? `<a class="res-pill" href="${item.url}" target="_blank" rel="noopener noreferrer">Open ↗</a>` : "")
+              }
+            </div>
+          </div>`;
+      }).join("");
+    }
+
+    function toggleSaveRes(iid) {
+      savedRes[iid] = !savedRes[iid];
+      localStorage.setItem(SAVED_KEY, JSON.stringify(savedRes));
+      renderCategoryItems();
+      renderTracker();
+    }
+
+    function copyTemplateText(btn, text) {
+      navigator.clipboard.writeText(text);
+      const orig = btn.textContent;
+      btn.textContent = "Copied ✓";
+      setTimeout(() => btn.textContent = orig, 1600);
+    }
+
+    /* ========================================================================
+       COMMAND PALETTE (Ctrl+K) & UTILITIES
+       ======================================================================== */
+    function openCmdPalette() {
+      document.getElementById("cmdOverlay").classList.add("open");
+      const inp = document.getElementById("cmdInput");
+      inp.value = "";
+      inp.focus();
+      runCommandSearch("");
+    }
+
+    function closeCmdPalette() {
+      document.getElementById("cmdOverlay").classList.remove("open");
+    }
+
+    function runCommandSearch(q) {
+      const query = q.trim().toLowerCase();
+      const results = [];
+
+      MODULES.forEach(mod => {
+        if (!query || mod.cleanTitle.toLowerCase().includes(query)) {
+          results.push({ title: `${mod.modNumber}. ${mod.cleanTitle}`, badge: "Curriculum", action: () => { closeCmdPalette(); jumpToModule(mod.id); } });
+        }
+      });
+
+      CATEGORIES.forEach(cat => {
+        (cat.items || []).forEach(it => {
+          if (query && (it.title || "").toLowerCase().includes(query)) {
+            results.push({ title: it.title, badge: cat.title, action: () => { closeCmdPalette(); switchView("resources"); openCategory(cat.id); } });
+          }
+        });
+      });
+
+      document.getElementById("cmdResults").innerHTML = results.slice(0, 14).map((r, i) => `
+        <div class="cmd-result-item" onclick="window._cmdHits[${i}]()">
+          <span>${r.title}</span>
+          <span class="subtag-chip">${r.badge}</span>
+        </div>
+      `).join("") || `<div style="padding:18px;text-align:center;color:var(--text-muted);font-size:13px;">No matching topics or resources found.</div>`;
+
+      window._cmdHits = results.slice(0, 14).map(r => r.action);
+    }
+
+    document.addEventListener("keydown", e => {
+      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "k") {
+        e.preventDefault();
+        openCmdPalette();
+      } else if (e.key === "Escape") {
+        closeCmdPalette();
+      }
+    });
+
+    function exportProgress() {
+      const blob = new Blob([JSON.stringify({ checkedMap, notesMap, savedRes }, null, 2)], { type: "application/json" });
+      const a = document.createElement("a");
+      a.href = URL.createObjectURL(blob);
+      a.download = "ai-roadmap-2026-backup.json";
+      a.click();
+    }
+
+    function resetProgress() {
+      if (!confirm("Reset all progress checkboxes to 0%?")) return;
+      checkedMap = {};
+      demoActive = false;
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(checkedMap));
+      renderAll();
+      showToast("Progress reset to 0%");
+    }
+
+    function renderAll() {
+      renderTracker();
+      renderCurriculum();
+      if (activeCatId) renderCategoryItems(); else renderVault();
+    }
+
+    initTheme();
+    renderAll();
+  </script>
+</body>
+</html>
